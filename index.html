@@ -5,32 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Calculator</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input { margin: 5px; }
-        button { margin-top: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Attendance Calculator</h1>
-    <label for="days-attended">Days Attended:</label>
-    <input type="number" id="days-attended" required min="0" placeholder="Enter number of days attended">
-    <br>
-    <label for="total-classes">Total Classes Held:</label>
-    <input type="number" id="total-classes" required min="1" placeholder="Enter total classes held">
-    <br>
-    <button id="calculate">Calculate</button>
-    <h2 id="result"></h2>
+    <label for="daysAttended">Days Attended:</label>
+    <input type="number" id="daysAttended" required min="0"><br>
+    <label for="totalClasses">Total Classes Held:</label>
+    <input type="number" id="totalClasses" required min="0"><br>
+    <button id="calculateBtn">Calculate</button>
+    <h2>Results</h2>
+    <p id="attendancePercentage"></p>
+    <p id="requiredClasses"></p>
+
     <script>
-        document.getElementById('calculate').addEventListener('click', function() {
-            const daysAttended = parseInt(document.getElementById('days-attended').value);
-            const totalClasses = parseInt(document.getElementById('total-classes').value);
-            if (isNaN(daysAttended) || isNaN(totalClasses) || totalClasses <= 0) {
-                document.getElementById('result').innerText = 'Please enter valid numbers.';
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const daysAttended = parseInt(document.getElementById('daysAttended').value);
+            const totalClasses = parseInt(document.getElementById('totalClasses').value);
+
+            if (totalClasses <= 0) {
+                alert('Total classes must be greater than zero!');
                 return;
             }
+
             const attendancePercentage = (daysAttended / totalClasses) * 100;
-            const requiredClasses = Math.ceil((0.75 * totalClasses) - daysAttended);
-            document.getElementById('result').innerText = `Attendance Percentage: ${attendancePercentage.toFixed(2)}%\nRequired Additional Classes to Achieve 75% Attendance: ${requiredClasses < 0 ? 0 : requiredClasses}`;
+            const requiredAttendance = 0.75 * (totalClasses + requiredClasses);
+            const requiredClasses = Math.ceil(requiredAttendance - daysAttended);
+
+            document.getElementById('attendancePercentage').innerText = `Attendance Percentage: ${attendancePercentage.toFixed(2)}%`;
+            document.getElementById('requiredClasses').innerText = `Classes Required to Achieve 75% Attendance: ${requiredClasses > 0 ? requiredClasses : 0}`;
         });
     </script>
 </body>
