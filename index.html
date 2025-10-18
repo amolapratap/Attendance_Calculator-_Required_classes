@@ -4,39 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Calculator</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input { margin: 5px; }
-        button { margin-top: 10px; }
-        .result { margin-top: 20px; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Attendance Calculator</h1>
-    <div>
-        <label for="daysAttended">Days Attended:</label>
-        <input type="number" id="daysAttended" required>
-        <label for="totalClasses">Total Classes Held:</label>
-        <input type="number" id="totalClasses" required>
-        <button id="calculateBtn">Calculate</button>
+    <div class="container">
+        <h1>Attendance Calculator</h1>
+        <form id="attendance-form">
+            <label for="attended">Days Attended:</label>
+            <input type="number" id="attended" required min="0">
+            <label for="total">Total Classes Held:</label>
+            <input type="number" id="total" required min="1">
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="result"></div>
     </div>
-    <div class="result" id="result"></div>
     <script>
-        document.getElementById('calculateBtn').addEventListener('click', function() {
-            const attended = parseInt(document.getElementById('daysAttended').value);
-            const total = parseInt(document.getElementById('totalClasses').value);
-            if (isNaN(attended) || isNaN(total) || total <= 0) {
-                document.getElementById('result').innerText = 'Please enter valid numbers.';
-                return;
-            }
+        document.getElementById('attendance-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const attended = parseInt(document.getElementById('attended').value);
+            const total = parseInt(document.getElementById('total').value);
+            const attendancePercentage = (attended / total) * 100;
+            const requiredClasses = total < 3 ? 0 : Math.ceil((0.75 * (total + requiredClasses)) - attended);
 
-            const percentage = (attended / total) * 100;
-            const requiredAttendance = 0.75;
-
-            const currentPercentage = percentage;
-            const classesNeeded = Math.max(0, Math.ceil((requiredAttendance * (total + classesNeeded) - attended) / (1 - requiredAttendance)));
-
-            document.getElementById('result').innerHTML = `<p>Attendance Percentage: ${currentPercentage.toFixed(2)}%</p><p>Classes Needed to Reach 75%: ${classesNeeded}</p>`;
+            document.getElementById('result').innerHTML = `<h2>Results:</h2><p>Attendance Percentage: ${attendancePercentage.toFixed(2)}%</p><p>Classes Needed for 75% Attendance: ${requiredClasses}</p>`;
         });
     </script>
 </body>
