@@ -4,44 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input {
-            margin-right: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Attendance Calculator</h1>
-    <label for="daysAttended">Days Attended:</label>
-    <input type="number" id="daysAttended" required min="0"><br>
-    <label for="totalClasses">Total Classes Held:</label>
-    <input type="number" id="totalClasses" required min="0"><br>
-    <button id="calculateBtn">Calculate</button>
-    <h2>Results</h2>
-    <p id="attendancePercentage"></p>
-    <p id="requiredClasses"></p>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script>
-        document.getElementById('calculateBtn').addEventListener('click', function() {
-            const daysAttended = parseInt(document.getElementById('daysAttended').value);
-            const totalClasses = parseInt(document.getElementById('totalClasses').value);
+        function calculateAttendance() {
+            const attended = parseInt(document.getElementById('attended').value);
+            const total = parseInt(document.getElementById('total').value);
 
-            if (totalClasses <= 0) {
-                alert('Total classes must be greater than zero!');
+            if (isNaN(attended) || isNaN(total) || total <= 0) {
+                alert('Please enter valid numbers.');
                 return;
             }
 
-            const attendancePercentage = (daysAttended / totalClasses) * 100;
-            const requiredAttendance = 0.75 * (totalClasses + requiredClasses);
-            const requiredClasses = Math.ceil(requiredAttendance - daysAttended);
+            const percentage = (attended / total) * 100;
+            const requiredClasses = 3 * total - 4 * attended;
 
-            document.getElementById('attendancePercentage').innerText = `Attendance Percentage: ${attendancePercentage.toFixed(2)}%`;
-            document.getElementById('requiredClasses').innerText = `Classes Required to Achieve 75% Attendance: ${requiredClasses > 0 ? requiredClasses : 0}`;
-        });
+            if (requiredClasses < 0) {
+                document.getElementById('message').innerHTML = 'You already have 75% or more attendance!';
+            } else {
+                document.getElementById('message').innerHTML = `To achieve 75% attendance: You need to attend ${requiredClasses} more classes.`;
+            }
+
+            document.getElementById('percentage').innerHTML = `Attendance Percentage: ${percentage.toFixed(2)}%`;
+        }
     </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Attendance Calculator</h1>
+        <div class="form-group">
+            <label for="attended">Days Attended:</label>
+            <input type="number" id="attended" class="form-control" placeholder="Enter number of days attended">
+        </div>
+        <div class="form-group">
+            <label for="total">Total Classes Held:</label>
+            <input type="number" id="total" class="form-control" placeholder="Enter total classes held">
+        </div>
+        <button class="btn btn-primary btn-block" onclick="calculateAttendance()">Calculate</button>
+        <div class="alert alert-info mt-3" id="percentage"></div>
+        <div class="alert alert-warning mt-3" id="message"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
