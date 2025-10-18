@@ -7,7 +7,7 @@ This project is a simple tool that calculates the attendance percentage and nece
 - Input for the number of days attended.
 - Input for the total number of classes held.
 - Calculation of the attendance percentage.
-- Calculation of classes needed to meet 75% attendance, ensuring correct computation.
+- Calculation of required classes to meet 75% attendance.
 
 ### Usage
 1. Open the `index.html` file in a web browser.
