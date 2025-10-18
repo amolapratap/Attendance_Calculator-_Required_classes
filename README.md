@@ -1,7 +1,7 @@
 # Attendance Calculator
 
 ## Project Description
-This project is a simple tool that calculates the attendance percentage and necessary additional classes required to achieve 75% attendance based on the days you have attended and the total classes held.
+This project is a simple tool that calculates attendance percentage and necessary additional classes required to achieve 75% attendance based on the days attended and the total classes held.
 
 ### Features
 - Input for the number of days attended.
