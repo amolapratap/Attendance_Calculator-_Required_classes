@@ -17,9 +17,10 @@
 
             const percentage = (attended / total) * 100;
             const requiredClasses = 3 * total - 4 * attended;
+            const can_leave_class = (4 * attended - 3 * total)/3;
 
             if (requiredClasses < 0) {
-                document.getElementById('message').innerHTML = 'You already have 75% or more attendance!';
+                document.getElementById('message').innerHTML = 'You already have 75% or more attendance!, You can leave next ${can_leave_class) classes.';
             } else {
                 document.getElementById('message').innerHTML = `To achieve 75% attendance: You need to attend ${requiredClasses} more classes.`;
             }
